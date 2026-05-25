@@ -1,0 +1,324 @@
+# ---------------------------------------------------------------------------
+# Retrieval evaluation question set.
+#
+# Each question has DUAL ground truth:
+#   - expected[].{company, fiscal_year, section_id} — coarse metadata target
+#   - expected[].must_contain_any — list of substrings (case-insensitive);
+#     at least one must appear in the retrieved chunk for a "strict" match.
+#
+# Metrics:
+#   - Metadata Hit@k / MRR — retrieved chunk metadata matches expected tuple
+#   - Strict Hit@k / MRR   — metadata matches AND chunk contains a keyword
+#
+# Categories: single | comparison_year | comparison_company | risk | strategy
+#
+# Ground-truth labels are author-judged (this is a class project), so the
+# strict metric is the more defensible measure of "actually retrieved the
+# answer-bearing chunk".
+# ---------------------------------------------------------------------------
+
+questions:
+  # ---------------------- Single-company, single-year (10) ----------------- #
+  - id: q01
+    category: single
+    question: "How did NVIDIA's data center revenue change from fiscal 2023 to fiscal 2024?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["Data Center", "data center"]
+
+  - id: q02
+    category: single
+    question: "What were Apple's iPhone revenue results in fiscal year 2024?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["iPhone"]
+
+  - id: q03
+    category: single
+    question: "How did Microsoft's Intelligent Cloud segment perform in fiscal year 2024?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["Intelligent Cloud", "Azure"]
+
+  - id: q04
+    category: single
+    question: "What did NVIDIA say about its Hopper GPU platform in the FY2024 10-K?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["Hopper", "H100"]
+
+  - id: q05
+    category: single
+    question: "How does Microsoft govern cybersecurity risk according to its FY2024 disclosure?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_1c
+        must_contain_any: ["cybersecurity", "governance", "Board"]
+
+  - id: q06
+    category: single
+    question: "What supply-chain or single-source supplier risks does Apple identify in its FY2024 risk factors?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["single source", "single or limited", "supply", "manufacturing"]
+
+  - id: q07
+    category: single
+    question: "What competitive pressures does NVIDIA describe in its FY2025 risk factors?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2025
+        section_id: item_1a
+        must_contain_any: ["competition", "competitors", "competitive"]
+
+  - id: q08
+    category: single
+    question: "What does Microsoft say about its AI strategy and Copilot products in fiscal 2024?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["AI", "Copilot", "artificial intelligence"]
+
+  - id: q09
+    category: single
+    question: "What did Apple report about Services revenue growth in fiscal year 2024?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["Services"]
+
+  - id: q10
+    category: single
+    question: "What does NVIDIA's FY2024 10-K say about U.S. export restrictions affecting sales to China?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["export", "license", "China"]
+      - company: nvidia
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["export", "China"]
+
+  # -------------------------- Cross-year comparison (6) -------------------- #
+  - id: q11
+    category: comparison_year
+    question: "How did NVIDIA's total revenue evolve from fiscal 2024 to fiscal 2025?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["revenue"]
+      - company: nvidia
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["revenue"]
+
+  - id: q12
+    category: comparison_year
+    question: "How has Microsoft's cloud revenue grown from fiscal 2023 to fiscal 2024 to fiscal 2025?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2023
+        section_id: item_7
+        must_contain_any: ["cloud", "Cloud"]
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["cloud", "Cloud"]
+      - company: microsoft
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["cloud", "Cloud"]
+
+  - id: q13
+    category: comparison_year
+    question: "How did Apple's Services segment grow over fiscal years 2023, 2024, and 2025?"
+    expected:
+      - company: apple
+        fiscal_year: 2023
+        section_id: item_7
+        must_contain_any: ["Services"]
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["Services"]
+      - company: apple
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["Services"]
+
+  - id: q14
+    category: comparison_year
+    question: "How did NVIDIA's gross margin change between fiscal 2023 and fiscal 2024?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["gross margin", "Gross margin"]
+
+  - id: q15
+    category: comparison_year
+    question: "How did Microsoft's operating expenses change from fiscal 2023 to fiscal 2024?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["operating expenses", "Operating expenses"]
+
+  - id: q16
+    category: comparison_year
+    question: "How has Apple's research and development spending trended over the last three fiscal years?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["research and development", "Research and development"]
+      - company: apple
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["research and development", "Research and development"]
+
+  # ------------------------- Cross-company comparison (5) ------------------ #
+  - id: q17
+    category: comparison_company
+    question: "Compare R&D spending across Microsoft, Apple, and NVIDIA in their most recent fiscal year."
+    expected:
+      - company: microsoft
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["research and development", "Research and development"]
+      - company: apple
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["research and development", "Research and development"]
+      - company: nvidia
+        fiscal_year: 2026
+        section_id: item_7
+        must_contain_any: ["research and development", "Research and development"]
+
+  - id: q18
+    category: comparison_company
+    question: "What do Microsoft and NVIDIA each say about demand for AI products and services in their most recent filings?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2025
+        section_id: item_7
+        must_contain_any: ["AI", "artificial intelligence", "Copilot"]
+      - company: nvidia
+        fiscal_year: 2026
+        section_id: item_7
+        must_contain_any: ["AI", "artificial intelligence"]
+
+  - id: q19
+    category: comparison_company
+    question: "How do Apple and NVIDIA differ in the supply-chain risks they emphasize?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["supply", "single source", "single or limited"]
+      - company: nvidia
+        fiscal_year: 2025
+        section_id: item_1a
+        must_contain_any: ["supply", "manufacturing", "third-party"]
+
+  - id: q20
+    category: comparison_company
+    question: "How do Microsoft and Apple each describe their cloud-services strategy and revenue?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["cloud", "Cloud", "Azure"]
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["Services", "iCloud"]
+
+  - id: q21
+    category: comparison_company
+    question: "How do Microsoft, Apple, and NVIDIA each describe their cybersecurity governance and oversight?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_1c
+        must_contain_any: ["cybersecurity", "governance", "Board"]
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_1c
+        must_contain_any: ["cybersecurity", "governance"]
+      - company: nvidia
+        fiscal_year: 2025
+        section_id: item_1c
+        must_contain_any: ["cybersecurity", "risk management"]
+
+  # ------------------------------- Risk / strategy (4) --------------------- #
+  - id: q22
+    category: risk
+    question: "What climate-change-related risks do these companies identify in their most recent risk factors?"
+    expected:
+      - company: microsoft
+        fiscal_year: 2025
+        section_id: item_1a
+        must_contain_any: ["climate", "weather", "environmental"]
+      - company: apple
+        fiscal_year: 2025
+        section_id: item_1a
+        must_contain_any: ["climate", "weather", "environmental"]
+      - company: nvidia
+        fiscal_year: 2026
+        section_id: item_1a
+        must_contain_any: ["climate", "environmental"]
+
+  - id: q23
+    category: risk
+    question: "What geopolitical risks (war, tariffs, China tensions) do these filings emphasize?"
+    expected:
+      - company: nvidia
+        fiscal_year: 2025
+        section_id: item_1a
+        must_contain_any: ["China", "geopolitical", "export"]
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["China", "tariff", "geopolitical"]
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["geopolitical", "war", "international"]
+
+  - id: q24
+    category: risk
+    question: "What antitrust or regulatory risks do these companies highlight?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["antitrust", "regulator", "Digital Markets Act"]
+      - company: microsoft
+        fiscal_year: 2024
+        section_id: item_1a
+        must_contain_any: ["antitrust", "regulator", "competition law"]
+
+  - id: q25
+    category: strategy
+    question: "How does Apple describe its position on returning capital to shareholders through dividends and buybacks?"
+    expected:
+      - company: apple
+        fiscal_year: 2024
+        section_id: item_7
+        must_contain_any: ["dividend", "repurchase", "capital return"]
